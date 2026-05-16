@@ -29,9 +29,7 @@ export default function FeaturedDishes() {
           >
             {/* Image placeholder */}
             <div className="flex h-28 items-center justify-center bg-gradient-to-br from-surface via-card to-border">
-              <span className="font-serif text-5xl font-bold text-border/40 select-none">
-                {dish.rank}
-              </span>
+              <span className="text-3xl opacity-15 select-none">🥩</span>
             </div>
 
             <div className="p-4">
