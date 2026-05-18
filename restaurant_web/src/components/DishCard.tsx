@@ -52,7 +52,7 @@ export default function DishCard({ dish }: { dish: Dish }) {
             top: "30%",
             width: 3,
             height: 3,
-            background: g.glow,
+            background: grad.glow,
             boxShadow: `0 0 8px ${grad.glow}`,
             animation: "ember-glow 2s ease-in-out infinite",
           }}
