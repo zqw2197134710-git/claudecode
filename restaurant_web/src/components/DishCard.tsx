@@ -15,24 +15,26 @@ interface Dish {
 }
 
 export default function DishCard({ dish }: { dish: Dish }) {
-  const g = categoryGradients[dish.category] || categoryGradients["招牌烤肉"];
+  const grad = categoryGradients[dish.category] || categoryGradients["招牌烤肉"];
 
   return (
     <div className="glass-card group relative overflow-hidden rounded-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-ember/30">
       {/* Texture zone */}
       <div
+        aria-hidden="true"
         className="relative h-24 overflow-hidden"
         style={{
           background: `
-            linear-gradient(135deg, ${g.from} 0%, transparent 50%),
-            linear-gradient(225deg, ${g.to} 0%, transparent 40%),
-            radial-gradient(circle at 60% 30%, ${g.glow} 0%, transparent 40%),
+            linear-gradient(135deg, ${grad.from} 0%, transparent 50%),
+            linear-gradient(225deg, ${grad.to} 0%, transparent 40%),
+            radial-gradient(circle at 60% 30%, ${grad.glow} 0%, transparent 40%),
             radial-gradient(circle at 30% 70%, rgba(0,0,0,0.4) 0%, transparent 30%)
           `,
         }}
       >
         {/* Grain lines overlay */}
         <div
+          aria-hidden="true"
           className="absolute inset-0 opacity-20"
           style={{
             background: `
@@ -43,6 +45,7 @@ export default function DishCard({ dish }: { dish: Dish }) {
         />
         {/* Ember dot */}
         <div
+          aria-hidden="true"
           className="absolute rounded-full"
           style={{
             right: "20%",
@@ -50,7 +53,7 @@ export default function DishCard({ dish }: { dish: Dish }) {
             width: 3,
             height: 3,
             background: g.glow,
-            boxShadow: `0 0 8px ${g.glow}`,
+            boxShadow: `0 0 8px ${grad.glow}`,
             animation: "ember-glow 2s ease-in-out infinite",
           }}
         />
