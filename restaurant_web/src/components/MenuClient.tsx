@@ -123,6 +123,7 @@ export default function MenuClient({
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="搜索菜品..."
+                  aria-label="搜索菜品"
                   className="w-full rounded-lg border border-border/60 bg-surface py-2.5 pl-10 pr-4 text-sm text-text placeholder:text-text-muted/60 transition-colors focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/30"
                 />
               </div>
