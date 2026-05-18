@@ -18,15 +18,15 @@ export default function PriceBanner({ priceSingle, priceDouble, priceOriginal }:
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+      <div className="relative z-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-between stagger-reveal">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(248,192,80,0.6)]" />
             自助畅吃
           </div>
-          <h1 className="mt-4 font-serif text-3xl font-bold leading-tight text-text sm:text-4xl">
+          <h2 className="mt-4 font-serif text-3xl font-bold leading-tight text-text sm:text-4xl">
             自助餐单
-          </h1>
+          </h2>
           <p className="mt-2 text-sm text-text-muted">
             驻马店烤肉自助好评榜 · 第 1 名
           </p>
