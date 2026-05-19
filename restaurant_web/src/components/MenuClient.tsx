@@ -4,6 +4,10 @@ import { useState, useMemo, useCallback } from "react";
 import DishCard from "@/components/DishCard";
 import PriceBanner from "@/components/PriceBanner";
 import CtaBanner from "@/components/CtaBanner";
+import { CartProvider } from "@/hooks/useCart";
+import CartSidebar from "@/components/CartSidebar";
+import CartDrawer from "@/components/CartDrawer";
+import OrderModal from "@/components/OrderModal";
 
 interface Dish {
   name: string;
@@ -23,7 +27,7 @@ interface MenuClientProps {
   categories: Category[];
 }
 
-export default function MenuClient({
+function MenuContent({
   priceSingle,
   priceDouble,
   priceOriginal,
@@ -31,6 +35,7 @@ export default function MenuClient({
 }: MenuClientProps) {
   const [activeCategory, setActiveCategory] = useState(categories[0]?.name ?? "");
   const [search, setSearch] = useState("");
+  const [showOrderModal, setShowOrderModal] = useState(false);
 
   const currentCategory = categories.find((c) => c.name === activeCategory);
 
@@ -39,7 +44,7 @@ export default function MenuClient({
     if (!search.trim()) return currentCategory.dishes;
     const q = search.trim().toLowerCase();
     return currentCategory.dishes.filter(
-      (d) => d.name.toLowerCase().includes(q) || d.description.toLowerCase().includes(q)
+      (d) => d.name.toLowerCase().includes(q) || d.description.toLowerCase().includes(q),
     );
   }, [currentCategory, search]);
 
@@ -82,7 +87,7 @@ export default function MenuClient({
             </ul>
           </nav>
 
-          {/* Mobile Tabs + Content */}
+          {/* Main content */}
           <div className="min-w-0 flex-1">
             {/* Mobile category tabs */}
             <div className="mb-6 -mx-1 overflow-x-auto pb-2 lg:hidden">
@@ -142,17 +147,37 @@ export default function MenuClient({
                 <p className="mt-4 text-sm text-text-muted">未找到匹配菜品</p>
                 <button
                   onClick={() => setSearch("")}
-                  className="mt-3 text-sm text-brand hover:text-ember transition-colors"
+                  className="mt-3 text-sm text-brand transition-colors hover:text-ember"
                 >
                   清除搜索
                 </button>
               </div>
             )}
           </div>
+
+          {/* Desktop Cart Sidebar — hidden on mobile */}
+          <div className="hidden lg:block">
+            <CartSidebar onCheckout={() => setShowOrderModal(true)} />
+          </div>
         </div>
       </div>
 
+      {/* Mobile Cart Drawer */}
+      <div className="lg:hidden">
+        <CartDrawer onCheckout={() => setShowOrderModal(true)} />
+      </div>
+
       <CtaBanner />
+
+      <OrderModal open={showOrderModal} onClose={() => setShowOrderModal(false)} />
     </main>
+  );
+}
+
+export default function MenuClient(props: MenuClientProps) {
+  return (
+    <CartProvider>
+      <MenuContent {...props} />
+    </CartProvider>
   );
 }
