@@ -1,3 +1,7 @@
+"use client";
+
+import { useCart } from "@/hooks/useCart";
+
 const categoryGradients: Record<string, { from: string; to: string; glow: string }> = {
   "招牌烤肉": { from: "rgba(240,160,64,0.2)", to: "rgba(224,120,42,0.05)", glow: "rgba(240,160,64,0.4)" },
   "韩式料理": { from: "rgba(248,192,80,0.2)", to: "rgba(240,160,64,0.05)", glow: "rgba(248,192,80,0.35)" },
@@ -15,7 +19,10 @@ interface Dish {
 }
 
 export default function DishCard({ dish }: { dish: Dish }) {
+  const { state, dispatch } = useCart();
   const grad = categoryGradients[dish.category] || categoryGradients["招牌烤肉"];
+  const item = state.items.find((i) => i.name === dish.name);
+  const qty = item?.quantity ?? 0;
 
   return (
     <div className="glass-card group relative overflow-hidden rounded-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-ember/30">
@@ -32,7 +39,6 @@ export default function DishCard({ dish }: { dish: Dish }) {
           `,
         }}
       >
-        {/* Grain lines overlay */}
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-20"
@@ -43,7 +49,6 @@ export default function DishCard({ dish }: { dish: Dish }) {
             `,
           }}
         />
-        {/* Ember dot */}
         <div
           aria-hidden="true"
           className="absolute rounded-full"
@@ -65,9 +70,43 @@ export default function DishCard({ dish }: { dish: Dish }) {
         <p className="mt-1.5 text-sm text-text-secondary leading-relaxed line-clamp-2">
           {dish.description}
         </p>
-        <span className="mt-3 inline-block rounded-full bg-brand/10 px-2.5 py-0.5 text-[11px] text-brand">
-          {dish.category}
-        </span>
+        <div className="mt-3 flex items-center justify-between">
+          <span className="inline-block rounded-full bg-brand/10 px-2.5 py-0.5 text-[11px] text-brand">
+            {dish.category}
+          </span>
+          <div className="flex items-center gap-1.5">
+            {qty > 0 ? (
+              <>
+                <button
+                  onClick={() => dispatch({ type: "UPDATE_QUANTITY", name: dish.name, quantity: qty - 1 })}
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-border/60 text-sm text-text-muted transition-colors hover:border-ember hover:text-ember"
+                  aria-label={`减少 ${dish.name}`}
+                >
+                  −
+                </button>
+                <span className="w-5 text-center text-sm font-medium text-ember">{qty}</span>
+                <button
+                  onClick={() => dispatch({ type: "ADD_ITEM", name: dish.name })}
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-brand/20 text-sm text-brand transition-colors hover:bg-brand/30"
+                  aria-label={`增加 ${dish.name}`}
+                >
+                  +
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => dispatch({ type: "ADD_ITEM", name: dish.name })}
+                className="flex items-center gap-1 rounded-full bg-brand/15 px-3 py-1 text-xs text-brand transition-colors hover:bg-brand/25"
+                aria-label={`加入备餐单 ${dish.name}`}
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                加入
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
