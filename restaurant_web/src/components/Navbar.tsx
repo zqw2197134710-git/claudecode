@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "首页" },
+  { href: "/reserve", label: "预约" },
   { href: "/menu", label: "餐单" },
   { href: "/about", label: "关于" },
   { href: "/contact", label: "联系" },
