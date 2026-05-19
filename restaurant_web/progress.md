@@ -191,5 +191,23 @@
   - `docs/superpowers/specs/2026-05-19-phase-6-reservation-design.md` — 新增
   - `docs/superpowers/plans/2026-05-19-phase-6-reservation.md` — 新增
 
+## 会话：2026-05-19（续）
+
+### v1 范围全部完成
+6/6 阶段开发结束，build 通过，已推送 remote。
+
+### 待办（上线前必须）
+- [ ] **部署到 Vercel** — 需要用户注册 Vercel 并连接仓库
+- [ ] **配置 Supabase 环境变量**（NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY）
+- [ ] **真实图片** — Hero、菜品、餐厅环境
+- [ ] **内容确认** — 地址/电话/营业时间/菜单由用户确认
+
+### 待办（体验完善）
+- [ ] 自定义域名
+- [ ] SEO meta + Open Graph
+- [ ] Favicon
+- [ ] 提交通知（预约/订单/留言）
+- [ ] 管理后台查看数据
+
 ---
 *每个阶段完成后或遇到错误时更新此文件*
