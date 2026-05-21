@@ -1,2 +1,5 @@
 .planning/
 .superpowers/
+
+# Override parent .gitignore lib/ rule
+!src/lib/
