@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd restaurant_web && next build",
-  "outputDirectory": "restaurant_web/.next",
-  "installCommand": "cd restaurant_web && npm install"
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install"
 }
